@@ -1,12 +1,19 @@
+# import normal modules
 from tkinter import *
+import os
 from tkinter import filedialog
 from pytube import YouTube, Playlist
-import os
+
+
+# imoprt custom modules
+
+
 
 Dmp3 = False
 isPlaylist = False
 
 dest = "D:\\Music2\\MUSIC_DOWNLOADS"
+
 
 def status_change(stuff):
     global status
@@ -15,9 +22,8 @@ def status_change(stuff):
     status.config(state=DISABLED)
 
 
-def browse_file():
-    
-    global dest, label_b, status
+def browse_file():    
+    global dest, label_b
     dest = filedialog.askdirectory()
     label_b.config(text= "Current dest folder: " + dest)
     
@@ -104,10 +110,6 @@ def download(urls):
     
 
 
-
-    
-
-
 def check_mp():
     global Dmp3
     if(x.get()):
@@ -133,9 +135,9 @@ def check_p():
 def open_file_directory():
     global dest, status
     os.startfile(dest)
-    status.config(state=NORMAL)
-    status.insert(INSERT, "Opened file explorer in directory" + dest + "\n")
-    status.config(state=DISABLED)
+    status_change("Opened destination folder")
+
+
 
 # create the GUI
 
@@ -160,7 +162,6 @@ check_btn_mp.place(x=10, y=100)
 y = BooleanVar()
 check_btn_p = Checkbutton(window, text="Playlist?", bg="darkgrey",activebackground='darkgrey', font=('Arial', 10, 'bold'), variable=y, onvalue=True, offvalue=False, command=check_p)
 check_btn_p.place(x=200, y=100)
-
 
 # create the textbox
 textbox = Text(window, height=10, width=45, padx=20, pady=20)
