@@ -1,5 +1,7 @@
 # import normal modules
 from tkinter import *
+from turtle import bgcolor
+import customtkinter as ctk
 import os
 import asyncio
 from tkinter import filedialog
@@ -27,8 +29,8 @@ def get_default_path():
 def update_bar(i):
     global tasks, text_tasks, completed_tasks
 
-    bar['value'] += (i/tasks)*100
-    completed_tasks += 1
+    completed_tasks += i
+    bar.set((completed_tasks/tasks)*100)
 
     text_tasks.set(str(completed_tasks) + "/"+str(tasks))
     window.update_idletasks()
@@ -55,7 +57,7 @@ def get_urls():
     global tasks, text_tasks, completed_tasks
 
     urls = []
-    bar["value"] = 0
+    bar.set(0)
     text_tasks.set("0/0")
     completed_tasks = 0
 
@@ -76,6 +78,7 @@ def dowmload_videos(urls, dest):
             yt = YouTube(video)
         except:
             status_change("Error: " + video + "is not a valid url", 'error')
+            update_bar(1)
             return
 
         status_change("Downloading " + yt.title, 'special')
@@ -203,38 +206,43 @@ get_default_path()
 
 
 # create the GUI
-window = Tk()
+window = ctk.CTk()
 window.title("YTDownload")
 window.geometry("800x500")
-window.configure(background='darkgrey')
+# window.configure(background='darkgrey')
+ctk.set_appearance_mode("System")
+ctk.set_default_color_theme("dark-blue")
+
 
 # create the labels(title and message)
 
-title = Label(window, text="YTDownloader", bg='darkgrey',
-              fg='white', font=('Arial', 22, 'bold'))
+title = ctk.CTkLabel(window, text="YTDownloader",
+                     text_font=('Arial', 22, 'bold'))
 title.pack()
-label = Label(window, text="Enter the URL's of the videos:",
-              bg='darkgrey', fg='white', font=('Arial', 14, 'bold'))
+label = ctk.CTkLabel(window, text="Enter the URL's of the videos:",
+                     text_font=('Arial', 14, 'bold'))
 label.place(x=10, y=60)
 
 # create checkbox for mp3 or mp4
 x = BooleanVar()
-check_btn_mp = Checkbutton(window, text="MP3?", bg="darkgrey", activebackground='darkgrey', font=(
+check_btn_mp = ctk.CTkCheckBox(window, text="MP3?",  text_font=(
     'Arial', 10, 'bold'), variable=x, onvalue=True, offvalue=False, command=check_mp)
 check_btn_mp.place(x=10, y=100)
 
 # create checkbox for playlist or single video
 y = BooleanVar()
-check_btn_p = Checkbutton(window, text="Playlist?", bg="darkgrey", activebackground='darkgrey', font=(
+check_btn_p = ctk.CTkCheckBox(window, text="Playlist?",  text_font=(
     'Arial', 10, 'bold'), variable=y, onvalue=True, offvalue=False, command=check_p)
 check_btn_p.place(x=200, y=100)
 
 # create the textbox
-textbox = Text(window, height=10, width=45, padx=20, pady=20)
+textbox = Text(window, height=7, width=45,
+               padx=15, pady=15, highlightthickness=0, bg='light yellow', font=('Times New Roman', 12, 'bold'), spacing1=7)
 textbox.place(x=10, y=130)
 
 # create textbox for the status
-status = Text(window, height=10, width=40, padx=20, pady=20, state=DISABLED)
+status = Text(window, height=7, width=40, padx=15, pady=15,
+              bg='light yellow', highlightthickness=0, font=('Times New Roman', 12, 'bold'), state=DISABLED, spacing1=7)
 status.tag_configure("error", foreground="red")
 status.tag_configure("success", foreground="green")
 status.tag_configure("special", foreground="blue")
@@ -243,37 +251,39 @@ status.place(x=430, y=130)
 
 # create the browse button
 
-label_dest = Label(window, text="Current dest folder: " + dest,
-                   bg='darkgrey', fg='white', font=('Arial', 10, 'bold'))
-label_dest.place(x=10, y=340)
+label_dest = ctk.CTkLabel(window, text="Current dest folder: " + dest,
+                          text_font=('Arial', 10, 'bold'))
+label_dest.place(x=10, y=355)
 
 
-browse_btn = Button(window, text="Browse", bg='darkgrey',
-                    fg='white', font=('Arial', 14, 'bold'), command=browse_file)
-browse_btn.place(x=10, y=380)
+browse_btn = ctk.CTkButton(window, text="Browse", text_font=(
+    'Arial', 14, 'bold'), command=browse_file)
+browse_btn.place(x=10, y=385)
 
 # create the progress bar
-bar = Progressbar(window, orient="horizontal", length=300)
-bar.place(x=490, y=340)
+bar = ctk.CTkProgressBar(window, orient="horizontal", width=300)
+bar.place(x=490, y=360)
+bar.set(0)
 
 
 text_tasks = StringVar()
 text_tasks.set("0/0")
-label_task = Label(window, textvariable=text_tasks, bg='darkgrey', fg='black')
-label_task.place(x=760, y=362)
+label_task = ctk.CTkLabel(
+    window, textvariable=text_tasks,)
+label_task.place(x=710, y=370)
 
 # create the button
 
-down_btn = Button(window, text="Download", bg='white',
-                  fg='black', font=('Arial', 14, 'bold'), command=get_urls)
+down_btn = ctk.CTkButton(window, text="Download", text_font=(
+    'Arial', 14, 'bold'), command=get_urls)
 down_btn.place(x=10, y=430)
 
 
 # create open file driectory button
-open_btn = Button(window, text="Open File", bg='white', fg='black', font=(
+open_btn = ctk.CTkButton(window, text="Open File", text_font=(
     'Arial', 14, 'bold'), command=open_file_directory)
 # open_btn.place(x=100, y=430)
-open_btn.pack(side=BOTTOM)
+open_btn.pack(side=BOTTOM, pady=10)
 
 
 window.mainloop()

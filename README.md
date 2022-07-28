@@ -20,9 +20,16 @@ Simple yt downloader
 - The program does not save any information about your computer!
 - The program does not send or use any information about your computer!
 
-# TODO
+# TODO:
 
-- async download
-- error handling
-- design --> qt designer
--
+- [ ] async download
+- [x] error handling
+- [x] design --> customTkinter
+- [x] add a progress bar
+- [ ] add resolution change option
+- [x] add a checkbox to download in mp3 format
+- [x] create a playlist downloader
+- [x] save the video in a custom directory
+- [x] open the directory with the open file button
+- [x] add status window
+- [ ] make a custom icon and add it to the window and exe file
