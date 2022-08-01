@@ -2,15 +2,17 @@ Simple yt downloader
 
 ## Usage
 
-1. Download the exe file from [releases](https://github.com/progenor/YTDownloader/releases/latest)
-2. Run the exe file
-3. check the checkbox to download the video in mp3 format (mp4 highest quality is default)
-4. check the checkbox if its a playlist
-5. paste the link to the video/playlist you want to download (for multiple videos/playlists paste them in a new line)
-6. chose a directory to save the video to
-7. click "Download"
-8. wait till it finishes downloading
-9. open the directory you saved the video to with the open file button
+1. Download the YTDownloader.zip folder from [releases](https://github.com/progenor/YTDownloader/releases/latest)
+2. Extract the folder
+3. (Optional) Create a shortcut to the YTDownloader.exe file (Right click -> Send to Desktop)
+4. Run the exe file/shortcut
+5. check the checkbox to download the video in mp3 format (mp4 highest quality is default)
+6. check the checkbox if its a playlist
+7. paste the link to the video/playlist you want to download (for multiple videos/playlists paste them in a new line)
+8. chose a directory to save the video to
+9. click "Download"
+10. wait till it finishes downloading
+11. open the directory you saved the video to with the open file button
 
 # Privacy
 
